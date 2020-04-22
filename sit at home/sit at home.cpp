@@ -1,13 +1,11 @@
-﻿// sit at home.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
+﻿
 #include <iostream>
 #include <Windows.h>
 using namespace std;
 
 class sit_at_home
 {
-public:
+
     struct city
     {
         string fio;
@@ -18,7 +16,7 @@ public:
         city() : fio(""), age(0), f(false), violations(0), next(nullptr) {}
     };
     city* head;
-
+public:
     sit_at_home() : head(nullptr) {}
 
     void open()
@@ -128,6 +126,18 @@ public:
             two = one->next;
         }
     }
+    int city::* retPoin_age()
+    {
+        return &city::age;
+    }
+    bool city::* retPoin_f()
+    {
+        return &city::f;
+    }
+    int city::* retPoin_violations()
+    {
+        return &city::violations;
+    }
 };
 enum class Query
 {
@@ -183,6 +193,7 @@ istream& operator >> (istream& is, Query& q)
     }
     }
     return is;
+    
 }
 int main()
 {
@@ -204,16 +215,13 @@ int main()
             break; }
 
         case Query::group_age: {
-            int sit_at_home::city::* p = &sit_at_home::city::age;
-            t1.group<int>(p, 40, "Возраст : ");
+            t1.group<int>(t1.retPoin_age(), 40, "Возраст : ");
             break; }
         case Query::group_f: {
-            bool sit_at_home::city::* p = &sit_at_home::city::f;
-            t1.group<bool>(p, 0, "Необходимость : ");
+            t1.group<bool>(t1.retPoin_f(), 0, "Необходимость : ");
             break; }
         case Query::group_violations:{
-            int sit_at_home::city::* p = &sit_at_home::city::violations;
-            t1.group<int>(p, 1, "Нарушения : ");
+            t1.group<int>(t1.retPoin_violations(), 1, "Нарушения : ");
             break; }
         case Query::sort: {
             t1.sort();

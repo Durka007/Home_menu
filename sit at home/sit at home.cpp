@@ -138,6 +138,15 @@ public:
     {
         return &city::violations;
     }
+    ~sit_at_home()
+    {
+        while (head)
+        {
+            city* tmp = head;
+            head = head->next;
+            delete tmp;
+        }
+    }
 };
 enum class Query
 {
@@ -147,7 +156,8 @@ enum class Query
     group_f,
     group_violations,
     sort,
-    vivod
+    vivod,
+    end
 };
 istream& operator >> (istream& is, Query& q)
 {
@@ -164,33 +174,37 @@ istream& operator >> (istream& is, Query& q)
     system("cls");
     switch (operation)
     {
-    case 1: {
-        q = Query::ADD;
-        break;
-    }
-    case 2: {
-        q = Query::search;
-        break; }
-    case 3: {
-        q = Query::group_age;
-        break;
-    }
-    case 4: {
-        q = Query::group_f;
-        break;
-    }
-    case 5: {
-        q = Query::group_violations;
-        break;
-    }
-    case 6: {
-        q = Query::sort;
-        break;
-    }
-    case 7: {
-        q = Query::vivod;
-        break;
-    }
+        case 1: {
+            q = Query::ADD;
+            break;
+        }
+        case 2: {
+            q = Query::search;
+            break; }
+        case 3: {
+            q = Query::group_age;
+            break;
+        }
+        case 4: {
+            q = Query::group_f;
+            break;
+        }
+        case 5: {
+            q = Query::group_violations;
+            break;
+        }
+        case 6: {
+            q = Query::sort;
+            break;
+        }
+        case 7: {
+            q = Query::vivod;
+            break;
+        }
+        default: {
+            q = Query::end;
+            break;
+        }
     }
     return is;
     
@@ -209,7 +223,6 @@ int main()
         case Query::ADD: {
             t1.open();
             break; }
-
         case Query::search: {
             t1.search();
             break; }
@@ -230,9 +243,12 @@ int main()
         case Query::vivod: {
             t1.ouput();
             break; }
+        case Query::end: {
+            return 0;
+            break; }
         }
 
     }
-    return 0;
+    
 }
 

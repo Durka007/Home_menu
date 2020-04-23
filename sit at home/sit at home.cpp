@@ -58,27 +58,15 @@ public:
         if (head == nullptr)
             return;
         city* tmp = head;
-        if (a != 1)
-        {
             do {
-                if (tmp->*q > a)
+                if (tmp->*q > a ||(a==1 && tmp->*q < a))
                 {
                     cout << "ФИО : " << tmp->fio << endl;
                     cout << abs << tmp->*q << endl;
                 }
                 tmp = tmp->next;
             } while (tmp);
-        }
-        else {
-            do {
-                if (tmp->*q < a)
-                {
-                    cout << "ФИО : " << tmp->fio << endl;
-                    cout << abs << tmp->*q << endl;
-                }
-                tmp = tmp->next;
-            } while (tmp);
-        }
+
     }
     void ouput()
     {
